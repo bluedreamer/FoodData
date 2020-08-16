@@ -10,13 +10,20 @@ if($fp===false)
 class coldata
 {
     public $name;
+    public $minlen;
     public $maxlen;
-    public $types=array();
+    public $types;
     public $maxlen_text;
+    public $minlen_text;
 
     function __construct($name)
     {
         $this->name=$name;
+        $this->minlen=10000;
+        $this->minlen_text="";
+        $this->maxlen=0;
+        $this->maxlen_text="";
+        $this->types=array();
     }
 }
 $columns=[];
@@ -36,17 +43,33 @@ while($row=fgetcsv($fp, 10000, ","))
         for($i=0; $i < $field_count; ++$i)
         {
             $col=$columns[$i];
-            $type=gettype($row[$i]);
+            $value=$row[$i];
+
+            if(is_numeric($value))
+            {
+                $value=$value+0;
+            }
+            else if(empty($value))
+            {
+                $value=null;
+            }
+
+            $type=gettype($value);
             if(!isset($col->types[$type]))
             {
                 $col->types[$type]=0;
             }
             $col->types[$type]++;
-            $len=strlen($row[$i]);
+            $len=strlen($value);
             if($len > $col->maxlen)
             {
                 $col->maxlen=$len;
-                $col->maxlen_text=$row[$i];
+                $col->maxlen_text=$value;
+            }
+            if($len < $col->minlen)
+            {
+                $col->minlen=$len;
+                $col->minlen_text=$value;
             }
         }
     }
@@ -62,5 +85,5 @@ foreach($columns as $col)
         $tlist=$type . '=' . $count . $sep;
         $sep=',';
     }
-    printf("%s = %d (%s) (%s)\n", $col->name, $col->maxlen, $col->maxlen_text, $tlist);
+    printf("%s max=%d (%s) min=%d (%s) (%s)\n", $col->name, $col->maxlen, $col->maxlen_text, $col->minlen, $col->minlen_text, $tlist);
 }
