@@ -18,12 +18,21 @@ class coldata
 
     function __construct($name)
     {
-        $this->name=$name;
-        $this->minlen=10000;
-        $this->minlen_text="";
-        $this->maxlen=0;
-        $this->maxlen_text="";
-        $this->types=array();
+        $this->name = $name;
+        $this->minlen = 10000;
+        $this->minlen_text = "";
+        $this->maxlen = 0;
+        $this->maxlen_text = "";
+        $this->types["boolean"] = 0;
+        $this->types["integer"] = 0;
+        $this->types["double"] = 0;
+        $this->types["string"] = 0;
+        $this->types["array"] = 0;
+        $this->types["object"] = 0;
+        $this->types["resource"] = 0;
+        $this->types["resource (closed)"] = 0;
+        $this->types["NULL"] = 0;
+        $this->types["unknown type"] = 0;
     }
 }
 $columns=[];
@@ -49,17 +58,15 @@ while($row=fgetcsv($fp, 10000, ","))
             {
                 $value=$value+0;
             }
-            else if(empty($value))
+
+            if(empty($value))
             {
                 $value=null;
             }
 
             $type=gettype($value);
-            if(!isset($col->types[$type]))
-            {
-                $col->types[$type]=0;
-            }
             $col->types[$type]++;
+
             $len=strlen($value);
             if($len > $col->maxlen)
             {
@@ -82,8 +89,11 @@ foreach($columns as $col)
     $sep='';
     foreach($col->types as $type => $count)
     {
-        $tlist=$type . '=' . $count . $sep;
-        $sep=',';
+        if($count!=0)
+        {
+            $tlist.=$sep . $type . '=' . $count;
+            $sep=',';
+        }
     }
     printf("%s max=%d (%s) min=%d (%s) (%s)\n", $col->name, $col->maxlen, $col->maxlen_text, $col->minlen, $col->minlen_text, $tlist);
 }
