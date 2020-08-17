@@ -33,6 +33,7 @@ CREATE TABLE `input_food` (
   `unit` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The unit of measure for the amount of the input food that is included within this food (used for Survey (FNDDS) foods only)',
   `portion_code` int(11) DEFAULT NULL COMMENT 'Code that identifies the portion description used to measure the amount of the ingredient (used for Survey (FNDDS) foods only)',
   `portion_description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The description of the portion used to measure the amount of the ingredient (used for Survey (FNDDS) foods only)',
+  `gram_weight` decimal(10,4) DEFAULT NULL COMMENT 'The weight in grams of the input food',
   `retention_code` int(11) DEFAULT NULL COMMENT 'A numeric code identifying processing on the input food that may have impacted food nutrient content (used for Survey (FNDDS) foods only)',
   `survey_flag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '2 = SR description does not match SR code, other values = internal processing codes for FSRG use only',
   PRIMARY KEY (`id`)
@@ -48,4 +49,4 @@ CREATE TABLE `input_food` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 12:04:17
+-- Dump completed on 2020-08-16 18:13:45

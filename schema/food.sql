@@ -29,7 +29,7 @@ CREATE TABLE `food` (
   `food_category_id` int(11) DEFAULT NULL COMMENT 'Id of the food category the food belongs to',
   `publication_date` date DEFAULT NULL COMMENT 'Date when the food was published to FoodData Central',
   PRIMARY KEY (`fdc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Any substance consumed by humans for nutrition, taste and/or aroma';
+) ENGINE=InnoDB AUTO_INCREMENT=810277 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Any substance consumed by humans for nutrition, taste and/or aroma';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -41,4 +41,4 @@ CREATE TABLE `food` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 12:04:17
+-- Dump completed on 2020-08-16 18:13:45

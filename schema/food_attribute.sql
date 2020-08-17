@@ -30,7 +30,7 @@ CREATE TABLE `food_attribute` (
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Name of food attribute',
   `value` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The actual value of the attribute',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='The value for a generic property of a food';
+) ENGINE=InnoDB AUTO_INCREMENT=478327 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='The value for a generic property of a food';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -42,4 +42,4 @@ CREATE TABLE `food_attribute` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 12:04:17
+-- Dump completed on 2020-08-16 18:13:45

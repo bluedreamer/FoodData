@@ -29,7 +29,7 @@ CREATE TABLE `agricultural_acquisition` (
   `treatment` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Any special condition relevant to the production of this food - typically "drought"',
   `state` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The state in which this food was produced',
   PRIMARY KEY (`fdc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Non-processed foods obtained directly from the location where they are produced';
+) ENGINE=InnoDB AUTO_INCREMENT=336067 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Non-processed foods obtained directly from the location where they are produced';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -41,4 +41,4 @@ CREATE TABLE `agricultural_acquisition` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 12:04:17
+-- Dump completed on 2020-08-16 18:13:44

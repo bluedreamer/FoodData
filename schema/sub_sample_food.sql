@@ -26,7 +26,7 @@ CREATE TABLE `sub_sample_food` (
   `fdc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID of the food in the food table',
   `fdc_id_of_sample_food` int(11) NOT NULL COMMENT 'ID of the sample food from which the sub sample originated',
   PRIMARY KEY (`fdc_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A portion of a sample food used for the purpose of specific chemical analysis.';
+) ENGINE=InnoDB AUTO_INCREMENT=790991 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A portion of a sample food used for the purpose of specific chemical analysis.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -38,4 +38,4 @@ CREATE TABLE `sub_sample_food` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 12:04:17
+-- Dump completed on 2020-08-16 18:13:45

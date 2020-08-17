@@ -28,7 +28,7 @@ CREATE TABLE `food_calorie_conversion_factor` (
   `fat_value` decimal(10,4) DEFAULT NULL COMMENT 'The multiplication factor for fat',
   `carbohydrate_value` decimal(10,4) DEFAULT NULL COMMENT 'The multiplication factor for carbohydrates',
   PRIMARY KEY (`food_nutrient_conversion_factor_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='The multiplication factors to be used when calculating energy from macronutrients for a specific food';
+) ENGINE=InnoDB AUTO_INCREMENT=22720 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='The multiplication factors to be used when calculating energy from macronutrients for a specific food';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -40,4 +40,4 @@ CREATE TABLE `food_calorie_conversion_factor` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 12:04:17
+-- Dump completed on 2020-08-16 18:13:45

@@ -16,26 +16,24 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `food_nutrient`
+-- Table structure for table `fndds_ingredient_nutrient_value`
 --
 
-DROP TABLE IF EXISTS `food_nutrient`;
+DROP TABLE IF EXISTS `fndds_ingredient_nutrient_value`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `food_nutrient` (
-  `id` int(11) NOT NULL,
-  `fdc_id` int(11) NOT NULL COMMENT 'ID of the food this food nutrient pertains to',
-  `nutrient_id` int(11) NOT NULL COMMENT 'ID of the nutrient to which the food nutrient pertains',
-  `amount` decimal(8,2) DEFAULT NULL COMMENT 'Amount of the nutrient per 100g of food. Specified in unit defined in the nutrient',
-  `data_points` int(11) DEFAULT NULL COMMENT 'Number of observations on which the value is based',
-  `derivation_id` int(11) DEFAULT NULL COMMENT 'ID of the food nutrient derivation technique used to derive the value',
-  `min` decimal(10,4) DEFAULT NULL COMMENT 'The minimum amount',
-  `max` decimal(10,4) DEFAULT NULL COMMENT 'The maximum amount',
-  `median` decimal(10,4) DEFAULT NULL COMMENT 'The median amount',
-  `footnote` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Comments on any unusual aspects of the food nutrient. Examples might include',
-  `min_year_acquired` int(11) DEFAULT NULL COMMENT 'Minimum purchase year of all acquisitions used to derive the nutrient value',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A nutrient value for a food';
+CREATE TABLE `fndds_ingredient_nutrient_value` (
+  `Ingredient code` int(11) NOT NULL,
+  `SR description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `Nutrient code` int(11) NOT NULL,
+  `Nutrient value` decimal(10,4) DEFAULT NULL,
+  `Nutrient value source` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
+  `SR 28 derivation code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `SR 28 AddMod year` int(11) DEFAULT NULL,
+  `Start date` datetime DEFAULT NULL,
+  `End date` datetime DEFAULT NULL,
+  PRIMARY KEY (`Ingredient code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -47,4 +45,4 @@ CREATE TABLE `food_nutrient` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 18:13:45
+-- Dump completed on 2020-08-16 18:13:44
