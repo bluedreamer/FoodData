@@ -4,8 +4,8 @@ $host = isset($argv[1])?$argv[1]:"";
 $db = isset($argv[2])?$argv[2]:"";
 $user = isset($argv[3])?$argv[3]:"";
 $password = isset($argv[4])?$argv[4]:"";
-$record_chunk=100000;
-$truncate=false;
+$record_chunk=500;
+$truncate=true;
 
 function map_datatype_to_bind_param($data_type)
 {
@@ -53,11 +53,12 @@ if($mysql->connect_error)
 {
     die("Couldn't connect to database: " . $mysql->connect_error);
 }
+$mysql->autocommit(false);
 
 $filelist = array(
     "acquisition_sample.csv",
     "agricultural_acquisition.csv",
-//    "branded_food.csv",
+    "branded_food.csv",
 //    "fndds_derivation.csv",
 //    "fndds_ingredient_nutrient_value.csv",
 //    "food.csv",
@@ -169,7 +170,7 @@ SQL;
     }
 
     $field_names=fgetcsv($fp, 10000, ",");
-
+    $column_count_in_csv_file=count($field_names);
     $sep='';
     $insert_query="INSERT INTO $table_name SET ";
 
@@ -196,13 +197,16 @@ SQL;
 
     $mysql->begin_transaction();
     $import_count=0;
+    $csv_row=[];
+    $stmt=$mysql->prepare($insert_query);
+
     while($csv_row=fgetcsv($fp, 10000, ","))
     {
         $bind_param_data=[];
         $bind_param_data[]=&$param_type_list;
-        $stmt=$mysql->prepare($insert_query);
-        for($i=0; $i < count($csv_row); ++$i)
+        for($i=0; $i < $column_count_in_csv_file; ++$i)
         {
+            $csv_row[]="";
             $bind_param_data[]=&$csv_row[$i];
         }
         call_user_func_array(array($stmt, "bind_param"), $bind_param_data);
