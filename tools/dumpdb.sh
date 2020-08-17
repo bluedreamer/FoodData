@@ -10,5 +10,5 @@ table_list=$(mysql --skip-column-names -h $host -u $user -p$password -e "SET SES
 
 for table in $table_list
 do
-  mysqldump --no-data --skip-dump-date -h $host -u $user -p$password $db $table > schema/$table.sql
+  mysqldump --no-data --skip-dump-date -h $host -u $user -p$password $db $table > schema/table_$table.sql
 done

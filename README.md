@@ -12,6 +12,24 @@ The data is available for free from the US Department of Agriculture's website
 * The Full Data April 2020 CSV dataset was used 
 * DB Column descriptions etc added from provided PDF 
 
+## Usage
+
+* Create the database
+ ```bash
+cat schema/db.sql | mysql
+ ``` 
+* Create all the tables
+```bash
+cat schema/table_*.sql | mysql usda
+```
+* Download and extract the data from the USDA
+* Import the data into the database
+```bash
+cd FoodData_Central_csv_2020-04-29
+../import_csv_data.php dbhost dbname dbuser dbpassword
+```
+ 
+
 ## Version History
 
 Version | Description | Date
