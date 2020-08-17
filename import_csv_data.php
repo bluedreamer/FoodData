@@ -4,8 +4,49 @@ $host = isset($argv[1])?$argv[1]:"";
 $db = isset($argv[2])?$argv[2]:"";
 $user = isset($argv[3])?$argv[3]:"";
 $password = isset($argv[4])?$argv[4]:"";
-
+$record_chunk=100000;
 $truncate=false;
+
+function map_datatype_to_bind_param($data_type)
+{
+    switch($data_type)
+    {
+        case "int":
+        case "smallint":
+        case "tinyint":
+        case "bigint":
+            return "i";
+
+        case "char":
+        case "date":
+        case "mediumtext":
+        case "set":
+        case "text":
+        case "time":
+        case "timestamp":
+        case "longtext":
+        case "varchar":
+        case "datetime":
+        case "enum":
+            return "s";
+
+        case "mediumblob":
+        case "longblob":
+        case "tinyblob":
+        case "varbinary":
+        case "binary":
+        case "blob":
+            return "b";
+
+        case "decimal":
+        case "float":
+        case "double":
+            return "d";
+
+        default:
+            die("Dont know: $data_type");
+    }
+}
 
 $mysql=new mysqli($host, $user, $password, $db);
 if($mysql->connect_error)
@@ -17,42 +58,88 @@ $filelist = array(
     "acquisition_sample.csv",
     "agricultural_acquisition.csv",
 //    "branded_food.csv",
-    "fndds_derivation.csv",
-    "fndds_ingredient_nutrient_value.csv",
-    "food.csv",
-    "food_attribute.csv",
-    "food_attribute_type.csv",
-    "food_calorie_conversion_factor.csv",
-    "food_category.csv",
-    "food_component.csv",
-    "food_nutrient.csv",
-    "food_nutrient_conversion_factor.csv",
-    "food_nutrient_derivation.csv",
-    "food_nutrient_source.csv",
-    "food_portion.csv",
-    "food_protein_conversion_factor.csv",
-    "food_update_log_entry.csv",
-    "foundation_food.csv",
-    "input_food.csv",
-    "lab_method.csv",
-    "lab_method_code.csv",
-    "lab_method_nutrient.csv",
-    "market_acquisition.csv",
-    "measure_unit.csv",
-    "nutrient.csv",
-    "nutrient_incoming_name.csv",
-    "retention_factor.csv",
-    "sample_food.csv",
-    "sr_legacy_food.csv",
-    "sub_sample_food.csv",
-    "sub_sample_result.csv",
-    "survey_fndds_food.csv",
-    "wweia_food_category.csv",
+//    "fndds_derivation.csv",
+//    "fndds_ingredient_nutrient_value.csv",
+//    "food.csv",
+//    "food_attribute.csv",
+//    "food_attribute_type.csv",
+//    "food_calorie_conversion_factor.csv",
+//    "food_category.csv",
+//    "food_component.csv",
+//    "food_nutrient.csv",
+//    "food_nutrient_conversion_factor.csv",
+//    "food_nutrient_derivation.csv",
+//    "food_nutrient_source.csv",
+//    "food_portion.csv",
+//    "food_protein_conversion_factor.csv",
+//    "food_update_log_entry.csv",
+//    "foundation_food.csv",
+//    "input_food.csv",
+//    "lab_method.csv",
+//    "lab_method_code.csv",
+//    "lab_method_nutrient.csv",
+//    "market_acquisition.csv",
+//    "measure_unit.csv",
+//    "nutrient.csv",
+//    "nutrient_incoming_name.csv",
+//    "retention_factor.csv",
+//    "sample_food.csv",
+//    "sr_legacy_food.csv",
+//    "sub_sample_food.csv",
+//    "sub_sample_result.csv",
+//    "survey_fndds_food.csv",
+//    "wweia_food_category.csv",
 );
 
+class Stats
+{
+    public $start_time;
+    public $end_time;
+    public $records;
+
+    function __construct()
+    {
+        $this->start_time=gettimeofday();
+        $this->end_time=null;
+        $this->records=0;
+    }
+
+    function end()
+    {
+        $this->end_time=gettimeofday();
+    }
+
+    function inc()
+    {
+        ++$this->records;
+    }
+
+    function gettime()
+    {
+        $usec_diff=$this->end_time["usec"] - $this->start_time["usec"];
+        $sec_diff=$this->end_time["sec"] - $this->start_time["sec"];
+        if($usec_diff < 0)
+        {
+            $usec_diff+=1000000;
+            --$sec_diff;
+        }
+        $result=$usec_diff / 1000000;
+        $result+=$sec_diff;
+
+        return $result;
+    }
+
+    function recspersec()
+    {
+        return $this->records / $this->gettime();
+    }
+}
+
+$stats=[];
 foreach($filelist as $file)
 {
     $table_name=basename($file, ".csv");
+    $stats[$table_name]=new Stats();
     printf("Processing %s\n", $table_name);
     if($truncate)
     {
@@ -108,6 +195,7 @@ SQL;
     }
 
     $mysql->begin_transaction();
+    $import_count=0;
     while($csv_row=fgetcsv($fp, 10000, ","))
     {
         $bind_param_data=[];
@@ -119,50 +207,24 @@ SQL;
         }
         call_user_func_array(array($stmt, "bind_param"), $bind_param_data);
         $stmt->execute();
+        if($import_count > $record_chunk)
+        {
+            $import_count=0;
+            $mysql->commit();
+            $mysql->begin_transaction();
+            printf("%d ", $stats[$table_name]->records);
+        }
+        ++$import_count;
+        $stats[$table_name]->inc();
     }
+    $stats[$table_name]->end();
     $mysql->commit();
-    printf("Completed %s\n", $table_name);
+    printf("\nCompleted %s loaded %d in %fs at %f recs/s\n",
+        $table_name,
+        $stats[$table_name]->records,
+        $stats[$table_name]->gettime(),
+    $stats[$table_name]->recspersec(),
+    );
 
     fclose($fp);
-}
-
-function map_datatype_to_bind_param($data_type)
-{
-    switch($data_type)
-    {
-        case "int":
-        case "smallint":
-        case "tinyint":
-        case "bigint":
-            return "i";
-
-        case "char":
-        case "date":
-        case "mediumtext":
-        case "set":
-        case "text":
-        case "time":
-        case "timestamp":
-        case "longtext":
-        case "varchar":
-        case "datetime":
-        case "enum":
-            return "s";
-
-        case "mediumblob":
-        case "longblob":
-        case "tinyblob":
-        case "varbinary":
-        case "binary":
-        case "blob":
-            return "b";
-
-        case "decimal":
-        case "float":
-        case "double":
-            return "d";
-
-        default:
-            die("Dont know: $data_type");
-    }
 }
