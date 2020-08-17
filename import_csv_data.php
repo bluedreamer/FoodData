@@ -58,8 +58,8 @@ $mysql->autocommit(false);
 $filelist = array(
     "acquisition_sample.csv",
     "agricultural_acquisition.csv",
-    "branded_food.csv",
-//    "fndds_derivation.csv",
+//    "branded_food.csv",
+    "fndds_derivation.csv",
 //    "fndds_ingredient_nutrient_value.csv",
 //    "food.csv",
 //    "food_attribute.csv",
@@ -223,12 +223,26 @@ SQL;
     }
     $stats[$table_name]->end();
     $mysql->commit();
-    printf("\nCompleted %s loaded %d in %fs at %f recs/s\n",
+    printf("\n");
+    fclose($fp);
+}
+
+printf("==========================================================\n");
+printf("Chunk size: %d\n", $record_chunk);
+$total_time=0;
+$total_records=0;
+foreach($filelist as $file)
+{
+    $table_name = basename($file, ".csv");
+    printf("%40s loaded %7d in %11.06fs at %8.2f recs/s\n",
         $table_name,
         $stats[$table_name]->records,
         $stats[$table_name]->gettime(),
-    $stats[$table_name]->recspersec(),
+        $stats[$table_name]->recspersec(),
     );
-
-    fclose($fp);
+    $total_records+=$stats[$table_name]->records;
+    $total_time+=$stats[$table_name]->gettime();
 }
+printf("----------------------------------------------------------\n");
+printf("%7d records in %11.06fs at %8.2f recs/s\n", $total_records, $total_time, $total_records/$total_time);
+printf("==========================================================\n");
