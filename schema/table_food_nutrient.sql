@@ -26,7 +26,7 @@ CREATE TABLE `food_nutrient` (
   `id` int(11) NOT NULL,
   `fdc_id` int(11) NOT NULL COMMENT 'ID of the food this food nutrient pertains to',
   `nutrient_id` int(11) NOT NULL COMMENT 'ID of the nutrient to which the food nutrient pertains',
-  `amount` decimal(8,2) DEFAULT NULL COMMENT 'Amount of the nutrient per 100g of food. Specified in unit defined in the nutrient',
+  `amount` decimal(15,4) DEFAULT NULL COMMENT 'Amount of the nutrient per 100g of food. Specified in unit defined in the nutrient',
   `data_points` int(11) DEFAULT NULL COMMENT 'Number of observations on which the value is based',
   `derivation_id` int(11) DEFAULT NULL COMMENT 'ID of the food nutrient derivation technique used to derive the value',
   `min` decimal(10,4) DEFAULT NULL COMMENT 'The minimum amount',
