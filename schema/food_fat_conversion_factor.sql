@@ -23,8 +23,9 @@ DROP TABLE IF EXISTS `food_fat_conversion_factor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `food_fat_conversion_factor` (
-  `food_nutrient_conversion_factor_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Id of the related row in the nutrient_conversion_factor table',
-  `fat_nlea_value` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The multiplication factor to convert from fat NLEA (298) to total fat (204)'
+  `food_nutrient_conversion_factor_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Id of the related row in the nutrient_conversion_factor table',
+  `fat_nlea_value` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The multiplication factor to convert from fat NLEA (298) to total fat (204)',
+  PRIMARY KEY (`food_nutrient_conversion_factor_id`,`fat_nlea_value`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Factor to calculate total lipid fat (204)';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -37,4 +38,4 @@ CREATE TABLE `food_fat_conversion_factor` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 18:13:45
+-- Dump completed

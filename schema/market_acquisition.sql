@@ -49,4 +49,4 @@ CREATE TABLE `market_acquisition` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 18:13:45
+-- Dump completed

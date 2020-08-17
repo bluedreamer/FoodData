@@ -24,7 +24,8 @@ DROP TABLE IF EXISTS `acquisition_sample`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `acquisition_sample` (
   `fdc_id_of_sample_food` int(11) NOT NULL COMMENT 'ID of the sample food that uses the acquisitioned food',
-  `fdc_id_of_acquisition_food` int(11) NOT NULL COMMENT 'ID of the acquisitioned food used in the sample food'
+  `fdc_id_of_acquisition_food` int(11) NOT NULL COMMENT 'ID of the acquisitioned food used in the sample food',
+  PRIMARY KEY (`fdc_id_of_sample_food`,`fdc_id_of_acquisition_food`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Acquisitions may be blended with other acquisitions to create a sample food, and an acquisition can be used to created more than one sample food. This file stores which acquisitions and sample foods are related to each other.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -37,4 +38,4 @@ CREATE TABLE `acquisition_sample` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 18:13:44
+-- Dump completed

@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `foundation_food`;
 CREATE TABLE `foundation_food` (
   `fdc_id` int(11) NOT NULL COMMENT 'ID of the food in the food table',
   `NDB_number` int(11) DEFAULT NULL COMMENT 'Unique number assigned for the food, different from fdc_id, assigned in SR',
-  `footnote` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Comments on any unusual aspects. These are released to the public. Examples might include unusual aspects of the food overall.'
+  `footnote` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Comments on any unusual aspects. These are released to the public. Examples might include unusual aspects of the food overall.',
+  PRIMARY KEY (`fdc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Foods whose nutrient and food component values are derived primarily by chemical analysis. Foundation data also include extensive underlying metadata, such as the number of samples, the location and dates on which samples were obtained, analytical approaches used, and if appropriate, cultivar, genotype, and production practices.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -38,4 +39,4 @@ CREATE TABLE `foundation_food` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-08-16 18:13:45
+-- Dump completed
