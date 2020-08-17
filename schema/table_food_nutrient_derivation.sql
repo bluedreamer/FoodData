@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `food_nutrient_derivation`;
 CREATE TABLE `food_nutrient_derivation` (
   `id` int(11) NOT NULL,
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Code used for the derivation (e.g. A means analytical)',
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Description of the derivation',
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Description of the derivation',
   `source_id` int(11) NOT NULL COMMENT 'ID of the nutrient source associated with the derivation',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Procedure indicating how a food nutrient value was obtained';

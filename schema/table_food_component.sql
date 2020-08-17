@@ -25,9 +25,9 @@ DROP TABLE IF EXISTS `food_component`;
 CREATE TABLE `food_component` (
   `id` int(11) NOT NULL,
   `fdc_id` int(11) NOT NULL COMMENT 'ID of the food this food component pertains to',
-  `pct_weight` decimal(10,4) DEFAULT NULL COMMENT 'The weight of the component as a percentage of the total weight of the food',
   `name` varchar(50) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The kind of component, e.g. bone',
-  `is_refuse` tinyint(1) NOT NULL COMMENT 'Whether the component is refuse, i.e. not edible',
+  `pct_weight` decimal(10,4) DEFAULT NULL COMMENT 'The weight of the component as a percentage of the total weight of the food',
+  `is_refuse` char(1) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Whether the component is refuse, i.e. not edible',
   `gram_weight` decimal(10,4) DEFAULT NULL COMMENT 'The weight of the component in grams',
   `data_points` int(11) NOT NULL COMMENT 'The number of observations on which the measure is based',
   `min_year_acquired` int(11) DEFAULT NULL COMMENT 'Minimum purchase year of all acquisitions used to derive the component value',

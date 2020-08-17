@@ -26,7 +26,7 @@ CREATE TABLE `food_update_log_entry` (
   `id` int(11) NOT NULL COMMENT 'ID of the food in the food table',
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Description of the food',
   `last_updated` date NOT NULL COMMENT 'Date when the food was published to FoodData Central',
-  PRIMARY KEY (`id`)
+  KEY `IDX_food_update_log_entry_id` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Historical record of an update of food data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

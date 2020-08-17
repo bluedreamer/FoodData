@@ -1,5 +1,8 @@
 #!/usr/bin/php
 <?php
+include_once "filelist.php";
+include_once "Stats.php";
+
 $host = isset($argv[1])?$argv[1]:"";
 $db = isset($argv[2])?$argv[2]:"";
 $user = isset($argv[3])?$argv[3]:"";
@@ -55,91 +58,11 @@ if($mysql->connect_error)
 }
 $mysql->autocommit(false);
 
-$filelist = array(
-    "acquisition_sample.csv",
-    "agricultural_acquisition.csv",
-    "branded_food.csv",
-    "fndds_derivation.csv",
-    "fndds_ingredient_nutrient_value.csv",
-    "food.csv",
-    "food_attribute.csv",
-    "food_attribute_type.csv",
-    "food_calorie_conversion_factor.csv",
-    "food_category.csv",
-    "food_component.csv",
-    "food_nutrient.csv",
-    "food_nutrient_conversion_factor.csv",
-    "food_nutrient_derivation.csv",
-    "food_nutrient_source.csv",
-    "food_portion.csv",
-    "food_protein_conversion_factor.csv",
-    "food_update_log_entry.csv",
-    "foundation_food.csv",
-    "input_food.csv",
-    "lab_method.csv",
-    "lab_method_code.csv",
-    "lab_method_nutrient.csv",
-    "market_acquisition.csv",
-    "measure_unit.csv",
-    "nutrient.csv",
-    "nutrient_incoming_name.csv",
-    "retention_factor.csv",
-    "sample_food.csv",
-    "sr_legacy_food.csv",
-    "sub_sample_food.csv",
-    "sub_sample_result.csv",
-    "survey_fndds_food.csv",
-    "wweia_food_category.csv",
-);
-
-class Stats
-{
-    public $start_time;
-    public $end_time;
-    public $records;
-
-    function __construct()
-    {
-        $this->start_time=gettimeofday();
-        $this->end_time=null;
-        $this->records=0;
-    }
-
-    function end()
-    {
-        $this->end_time=gettimeofday();
-    }
-
-    function inc()
-    {
-        ++$this->records;
-    }
-
-    function gettime()
-    {
-        $usec_diff=$this->end_time["usec"] - $this->start_time["usec"];
-        $sec_diff=$this->end_time["sec"] - $this->start_time["sec"];
-        if($usec_diff < 0)
-        {
-            $usec_diff+=1000000;
-            --$sec_diff;
-        }
-        $result=$usec_diff / 1000000;
-        $result+=$sec_diff;
-
-        return $result;
-    }
-
-    function recspersec()
-    {
-        return $this->records / $this->gettime();
-    }
-}
-
 $stats=[];
 foreach($filelist as $file)
 {
-    $table_name=basename($file, ".csv");
+    $table_name=$file;
+    $file.=".csv";
     $stats[$table_name]=new Stats();
     printf("Processing %s\n", $table_name);
     if($truncate)
@@ -202,6 +125,20 @@ SQL;
 
     while($csv_row=fgetcsv($fp, 10000, ","))
     {
+        for($i=0; $i < count($csv_row); ++$i)
+        {
+            $value = &$csv_row[$i];
+
+            if(is_numeric($value))
+            {
+                $value = $value + 0;
+            }
+
+            if(empty($value))
+            {
+                $value = null;
+            }
+        }
         $bind_param_data=[];
         $bind_param_data[]=&$param_type_list;
         for($i=0; $i < $column_count_in_csv_file; ++$i)
@@ -210,7 +147,15 @@ SQL;
             $bind_param_data[]=&$csv_row[$i];
         }
         call_user_func_array(array($stmt, "bind_param"), $bind_param_data);
-        $stmt->execute();
+        if(!$stmt->execute())
+        {
+            printf("ERR: %s\n", $stmt->sqlstate);
+        }
+        if($stmt->affected_rows!=1)
+        {
+            printf("ERR2: %s [%s]\n", $stmt->error, print_r($csv_row, true));
+        }
+
         if($import_count > $record_chunk)
         {
             $import_count=0;
@@ -234,7 +179,7 @@ $total_records=0;
 foreach($filelist as $file)
 {
     $table_name = basename($file, ".csv");
-    printf("%40s loaded %7d in %11.06fs at %8.2f recs/s\n",
+    printf("%35s loaded %7d in %11.06fs at %8.2f recs/s\n",
         $table_name,
         $stats[$table_name]->records,
         $stats[$table_name]->gettime(),
