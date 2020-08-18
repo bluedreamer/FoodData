@@ -1,0 +1,3 @@
+Looks like rest API - sample query: https://fdc.nal.usda.gov/api-guide.html
+
+curl https://api.nal.usda.gov/fdc/v1/foods/search?api_key=DEMO_KEY&query=Cheddar%20Cheese
