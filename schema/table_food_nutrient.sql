@@ -34,7 +34,10 @@ CREATE TABLE `food_nutrient` (
   `median` decimal(10,4) DEFAULT NULL COMMENT 'The median amount',
   `footnote` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Comments on any unusual aspects of the food nutrient. Examples might include',
   `min_year_acquired` int(11) DEFAULT NULL COMMENT 'Minimum purchase year of all acquisitions used to derive the nutrient value',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_food_nutrient_fdc_id` (`fdc_id`),
+  KEY `IDX_food_nutrient_nutrient_id` (`nutrient_id`),
+  KEY `IDX_food_nutrient_derivation_id` (`derivation_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A nutrient value for a food';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

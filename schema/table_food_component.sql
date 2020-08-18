@@ -31,7 +31,8 @@ CREATE TABLE `food_component` (
   `gram_weight` decimal(10,4) DEFAULT NULL COMMENT 'The weight of the component in grams',
   `data_points` int(11) NOT NULL COMMENT 'The number of observations on which the measure is based',
   `min_year_acquired` int(11) DEFAULT NULL COMMENT 'Minimum purchase year of all acquisitions used to derive the component value',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_food_component_fdc_id` (`fdc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A constituent part of a food (e.g. bone is a component of meat)';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

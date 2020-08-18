@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `sub_sample_food`;
 CREATE TABLE `sub_sample_food` (
   `fdc_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID of the food in the food table',
   `fdc_id_of_sample_food` int(11) NOT NULL COMMENT 'ID of the sample food from which the sub sample originated',
-  PRIMARY KEY (`fdc_id`)
+  PRIMARY KEY (`fdc_id`),
+  KEY `IDX_sub_sample_food_fdc_id_of_sample_food` (`fdc_id_of_sample_food`)
 ) ENGINE=InnoDB AUTO_INCREMENT=790991 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A portion of a sample food used for the purpose of specific chemical analysis.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

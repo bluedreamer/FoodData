@@ -36,7 +36,11 @@ CREATE TABLE `market_acquisition` (
   `store_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The name of the store the food is purchased from',
   `store_state` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The state where the food was acquired',
   `upc_code` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'UPC code for the food. Only applicable for retail products.',
-  PRIMARY KEY (`fdc_id`)
+  PRIMARY KEY (`fdc_id`),
+  KEY `IDX_market_acquisition_store_city` (`store_city`),
+  KEY `IDX_market_acquisition_store_name` (`store_name`),
+  KEY `IDX_market_acquisition_store_state` (`store_state`),
+  KEY `IDX_market_acquisition_upc_code` (`upc_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A food obtained for chemical analysis.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

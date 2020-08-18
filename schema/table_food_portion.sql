@@ -34,7 +34,9 @@ CREATE TABLE `food_portion` (
   `data_points` int(11) DEFAULT NULL COMMENT 'The number of observations on which the measure is based',
   `footnote` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Comments on any unusual aspects of the measure. These are released to the public. Examples might include caveats on the usage of a measure, or reasons why a measure gram weight is an unexpected value.',
   `min_year_acquired` int(11) DEFAULT NULL COMMENT 'Minimum purchase year of all acquisitions used to derive the measure value',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_food_portion_fdc_id` (`fdc_id`),
+  KEY `IDX_food_portion_measure_unit_id` (`measure_unit_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Discrete amount of food';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

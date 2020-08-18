@@ -36,7 +36,10 @@ CREATE TABLE `branded_food` (
   `available_date` date DEFAULT NULL COMMENT 'This is the date when the product record was available for inclusion in the',
   `discontinued_date` date DEFAULT NULL COMMENT 'This is the date when the product was discontinued.',
   `market_country` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The primary country where the product is marketed.',
-  PRIMARY KEY (`fdc_id`)
+  PRIMARY KEY (`fdc_id`),
+  KEY `IDX_branded_food_brand_owner` (`brand_owner`),
+  KEY `IDX_branded_food_gtin_upc` (`gtin_upc`),
+  KEY `IDX_branded_food_ingredients` (`ingredients`(768))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Foods whose nutrient values are typically obtained from food label data provided by food brand owners.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

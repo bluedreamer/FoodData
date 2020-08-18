@@ -27,7 +27,9 @@ CREATE TABLE `food_nutrient_derivation` (
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Code used for the derivation (e.g. A means analytical)',
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Description of the derivation',
   `source_id` int(11) NOT NULL COMMENT 'ID of the nutrient source associated with the derivation',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_food_nutrient_derivation_code` (`code`),
+  KEY `IDX_food_nutrient_derivation_source_id` (`source_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Procedure indicating how a food nutrient value was obtained';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

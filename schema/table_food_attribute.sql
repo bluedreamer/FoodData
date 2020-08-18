@@ -29,7 +29,10 @@ CREATE TABLE `food_attribute` (
   `food_attribute_type_id` int(11) NOT NULL COMMENT 'ID of the type of food attribute to which this value is associated for a specific food',
   `name` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Name of food attribute',
   `value` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'The actual value of the attribute',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_food_attribute_fdc_id` (`fdc_id`),
+  KEY `IDX_food_attribute_food_attribute_type_id` (`food_attribute_type_id`),
+  KEY `IDX_food_attribute_name` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=478327 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='The value for a generic property of a food';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -36,7 +36,12 @@ CREATE TABLE `input_food` (
   `gram_weight` decimal(10,4) DEFAULT NULL COMMENT 'The weight in grams of the input food',
   `retention_code` int(11) DEFAULT NULL COMMENT 'A numeric code identifying processing on the input food that may have impacted food nutrient content (used for Survey (FNDDS) foods only)',
   `survey_flag` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '2 = SR description does not match SR code, other values = internal processing codes for FSRG use only',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_input_food_fdc_id` (`fdc_id`),
+  KEY `IDX_input_food_fdc_id_of_input_food` (`fdc_id_of_input_food`),
+  KEY `IDX_input_food_sr_code` (`sr_code`),
+  KEY `IDX_input_food_portion_code` (`portion_code`),
+  KEY `IDX_input_food_retention_code` (`retention_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A food that is an ingredient (for survey (FNDDS) foods) or a source food (for foundation foods or their source foods) to another food.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

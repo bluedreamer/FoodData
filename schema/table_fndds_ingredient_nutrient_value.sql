@@ -32,7 +32,10 @@ CREATE TABLE `fndds_ingredient_nutrient_value` (
   `SR 28 AddMod year` int(11) DEFAULT NULL,
   `Start date` datetime DEFAULT NULL,
   `End date` datetime DEFAULT NULL,
-  PRIMARY KEY (`Ingredient code`,`Nutrient code`)
+  PRIMARY KEY (`Ingredient code`,`Nutrient code`),
+  KEY `IDX_fndds_ingredient_nutrient_value_SR description` (`SR description`),
+  KEY `IDX_fndds_ingredient_nutrient_value_SR 28 derivation code` (`SR 28 derivation code`),
+  KEY `IDX_fndds_ingredient_nutrient_value_Nutrient code` (`Nutrient code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

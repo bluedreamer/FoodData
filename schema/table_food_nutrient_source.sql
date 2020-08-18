@@ -26,7 +26,8 @@ CREATE TABLE `food_nutrient_source` (
   `id` int(11) NOT NULL,
   `code` int(11) NOT NULL COMMENT 'Code used for the source (e.g. 4 means calculated or imputed)',
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Description of the source',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `UK_food_nutrient_source_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='An information source from which we can obtain food nutrient values';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

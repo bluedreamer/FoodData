@@ -27,7 +27,8 @@ CREATE TABLE `sub_sample_result` (
   `adjusted_amount` decimal(10,4) DEFAULT NULL COMMENT 'Amount after adjusting for unit',
   `lab_method_id` int(11) DEFAULT NULL COMMENT 'ID of the lab method used to measure the nutrient',
   `nutrient_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The name of the nutrient as supplied by the lab',
-  PRIMARY KEY (`food_nutrient_id`)
+  PRIMARY KEY (`food_nutrient_id`),
+  KEY `IDX_sub_sample_result_lab_method_id` (`lab_method_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='The result of chemical analysis of a lab on a particular sub sample for a particular nutrient';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

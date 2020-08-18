@@ -26,7 +26,8 @@ CREATE TABLE `nutrient_incoming_name` (
   `id` int(11) NOT NULL,
   `name` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'The name used for the incoming nutrient (e.g. if nutrient is Protein, name might be Prot)',
   `nutrient_id` int(11) NOT NULL COMMENT 'The id of the nutrient (in the nutrient file) related to the incoming name. Optional (see is_ignored for more info).',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_nutrient_incoming_name_nutrient_id` (`nutrient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A nutrient name used to identify a nutrient in incoming nutrient data';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

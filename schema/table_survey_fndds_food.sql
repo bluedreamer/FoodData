@@ -28,7 +28,9 @@ CREATE TABLE `survey_fndds_food` (
   `wweia_category_code` int(11) NOT NULL COMMENT 'Unique Identification code for WWEIA food category to which this food is assigned',
   `start_date` date NOT NULL COMMENT 'Start date indicates time period corresponding to WWEIA data',
   `end_date` date NOT NULL COMMENT 'End date indicates time period corresponding to WWEIA data',
-  PRIMARY KEY (`fdc_id`)
+  PRIMARY KEY (`fdc_id`),
+  KEY `IDX_survey_fndds_food_food_code` (`food_code`),
+  KEY `IDX_survey_fndds_food_wweia_category_code` (`wweia_category_code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Foods whose consumption is measured by the What We Eat In America dietary survey component of the National Health and Nutrition Examination Survey (NHANES). Survey nutrient values are usually calculated from Branded and SR Legacy data.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

@@ -28,7 +28,10 @@ CREATE TABLE `food` (
   `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Description of the food',
   `food_category_id` int(11) DEFAULT NULL COMMENT 'Id of the food category the food belongs to',
   `publication_date` date DEFAULT NULL COMMENT 'Date when the food was published to FoodData Central',
-  PRIMARY KEY (`fdc_id`)
+  PRIMARY KEY (`fdc_id`),
+  KEY `IDX_food_data_type` (`data_type`),
+  KEY `IDX_food_description` (`description`(768)),
+  KEY `IDX_food_food_category_id` (`food_category_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=810277 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Any substance consumed by humans for nutrition, taste and/or aroma';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

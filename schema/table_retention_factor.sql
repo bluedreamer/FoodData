@@ -27,7 +27,9 @@ CREATE TABLE `retention_factor` (
   `code` int(11) NOT NULL,
   `food_group_id` int(11) NOT NULL,
   `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_retention_factor_code` (`code`),
+  KEY `IDX_retention_factor_food_group_id` (`food_group_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='definitions are available from: www.ars.usda.gov/SP2UserFiles/Place/12354500/Data/retn/retn06.pdf.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

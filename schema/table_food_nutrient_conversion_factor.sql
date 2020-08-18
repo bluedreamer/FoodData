@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `food_nutrient_conversion_factor`;
 CREATE TABLE `food_nutrient_conversion_factor` (
   `id` int(11) NOT NULL,
   `fdc_id` int(11) NOT NULL COMMENT 'ID of the food that this food nutrient conversion factor pertains to',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_food_nutrient_conversion_factor_fdc_id` (`fdc_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Top level type for all types of nutrient conversion factors. A separate row is';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

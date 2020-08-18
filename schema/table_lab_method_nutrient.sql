@@ -26,7 +26,9 @@ CREATE TABLE `lab_method_nutrient` (
   `id` int(11) NOT NULL,
   `lab_method_id` int(11) NOT NULL COMMENT 'ID of the lab method the nutrient is measured by',
   `nutrient_id` int(11) NOT NULL COMMENT 'ID of the nutrient that can be measured by the lab method',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_lab_method_nutrient_lab_method_id` (`lab_method_id`),
+  KEY `IDX_lab_method_nutrient_nutrient_id` (`nutrient_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A nutrient whose amount can be measured by a lab method';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

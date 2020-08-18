@@ -25,7 +25,8 @@ DROP TABLE IF EXISTS `sr_legacy_food`;
 CREATE TABLE `sr_legacy_food` (
   `fdc_id` int(11) NOT NULL COMMENT 'ID of the food in the food table',
   `NDB_number` int(11) NOT NULL COMMENT 'Unique number assigned for final food, starts from the minimum number of 100,000',
-  PRIMARY KEY (`fdc_id`)
+  PRIMARY KEY (`fdc_id`),
+  KEY `IDX_sr_legacy_food_NDB_number` (`NDB_number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Foods from the April 2018 release of the USDA National Nutrient Database for Standard Reference. Nutrient and food component values are derived from chemical analysis and calculation.';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

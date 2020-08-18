@@ -26,7 +26,9 @@ CREATE TABLE `lab_method_code` (
   `id` int(11) NOT NULL,
   `lab_method_id` int(11) NOT NULL COMMENT 'ID of the lab method the code refers to',
   `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '' COMMENT 'Value of the method code',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  KEY `IDX_lab_method_code_lab_method_id` (`lab_method_id`),
+  KEY `IDX_lab_method_code_code` (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='A short, sometimes lab-specific, sequence of characters used to identify a lab method';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
